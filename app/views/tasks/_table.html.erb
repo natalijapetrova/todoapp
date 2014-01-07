@@ -1,0 +1,52 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Project</th>
+      <th>Created</th>
+      <th>Delegated</th>
+      <th>
+
+        <% if params[:sorting] == "deadline" %>
+          Deadline ^
+        <% else %>
+          <%= link_to "Deadline", tasks_path(sorting: "deadline") %>
+        <% end %>
+        </th>
+        <th>
+        <% if params[:sorting] == "duration" %>
+          Duration ^
+        <% else %>
+          <%= link_to "Duration", tasks_path(sorting: "duration") %>
+        <% end %> 
+        
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% tasks.each do |task| %>
+      <tr>
+        <td>
+          <%= form_for task do |f| %>
+          <%= f.check_box :done, class: "checkable" %>
+          <% end %>
+        </td>
+        <td class="<%= css_class %>"><%= link_to task.name, edit_task_path(task) %></td>
+        <td> <%= task.project.name if task.project %> </td>
+        <td> <%= task.user.username %> </td>
+        <td> <%= task.delegated.username if task.delegated %> </td>
+<!--        <td><%= task.deadline %></td> -->
+        <td>
+          <%= "in " if !task.is_delayed? %> 
+        <%= pluralize(task.distance_from_now_in_days.abs, "Day")  %>
+        <%= " ago " if task.is_delayed? %> 
+       </td>
+        <td><%= task.duration %></td>
+        <td><%= link_to 'Destroy', task, class: "btn btn-danger btn-sm", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

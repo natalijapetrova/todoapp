@@ -1,0 +1,4 @@
+$('#new_project').remove();
+$('#new_link').show();
+$('#project_<%= @project.id %>').replaceWith('<%= j render(@project) %>');
+$('#project_<%= @project.id %>').effect("highlight");

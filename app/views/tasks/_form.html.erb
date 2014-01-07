@@ -1,0 +1,47 @@
+<%= form_for @task, :html => { :role => "form"} do |f| %>
+
+  <% if @task.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+          <% @task.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :done %> <%= f.label :done %>
+    </label>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, class: "form-control", placeholder: "Name of Task" %>
+  </div>
+  <div class="form-group">
+  <%= f.label :delegated_id %><br>
+  <%= f.select :delegated_id, User.all.collect {|u| [ u.username, u.id ] }, { :include_blank => true, :selected => @task.delegated_id}, class: "form-control" %>
+  </div>  
+  <div class="form-group">
+    <%= f.label :deadline %><br>
+    <%= f.date_field :deadline, class: "form-control", placeholder: "Deadline of Task" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :duration %><br>
+    <%= f.text_field :duration, class: "form-control", placeholder: "Duration of Task" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :project_id %><br>
+    <%= f.select :project_id, Project.all.collect {|p| [ p.name, p.id ] }, { :include_blank => true, :selected => @task.project_id}, class: "form-control" %>
+</div>
+  <div class="actions">
+    <%= f.submit "Save Task", class: "btn btn-primary" %>  <%= link_to 'Cancel', tasks_path, class: "btn btn-default" %>
+  </div>    
+ <% end %>

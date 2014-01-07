@@ -1,0 +1,9 @@
+<%= link_to 'New Task', new_task_path, class: "btn btn-success btn-sm" %>
+
+<h2>Todo</h2>
+(<%= pluralize(@todo.count, "Task") %>, <%= pluralize(@todo.sum("duration"), "Hour") %>)
+<%= render partial: "table", locals: {tasks: @todo, css_class: "todo"} %>
+<h2>Done</h2>
+(<%= pluralize(@done.count, "Task") %>, <%= pluralize(@done.sum("duration"), "Hour") %>)
+<%= render partial: "table", locals: {tasks: @done, css_class: "done"} %>
+<br>

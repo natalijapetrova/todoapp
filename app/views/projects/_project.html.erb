@@ -1,0 +1,5 @@
+<tr id="project_<%= project.id %>"> 
+  <td><%= link_to project.name, edit_project_path(project), remote: true %></td>
+
+  <td><%= link_to "Delete", project, :class => "btn btn-danger  btn-sm", remote: true, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

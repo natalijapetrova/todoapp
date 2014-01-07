@@ -1,0 +1,12 @@
+<%= form_for(@project, remote: true, :html => {id: "new_project"}) do |f| %>
+    <div class="row form-group">
+        <div class="col-xs-4">
+            <label class="control-label" for="project_name" id="error-message"></label>
+            <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="col-xs-3 button-group"> 
+            <%= f.submit "Save", class: "btn btn-primary btn-sm" %>  
+            <%= link_to 'Cancel', "", id: "cancel_button", class: "btn btn-default btn-sm" %>
+        </div>
+    </div>
+<% end %>

@@ -1,0 +1,4 @@
+$('#new_project').remove();
+$('#new_link').show();
+$('tbody').append('<%= j render(@project) %>');
+$('#project_<%= @project.id %>').effect("highlight");
